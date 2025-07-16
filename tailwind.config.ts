@@ -1,19 +1,29 @@
 import type { Config } from "tailwindcss"
-import defaultConfig from "shadcn/ui/tailwind.config"
+import animatePlugin from "tailwindcss-animate"
+import shadcnConfig from "shadcn/ui/tailwind.config"
 
+/**
+ * Stand-alone Tailwind configuration.
+ * Extends shadcn/ui's default Tailwind config.
+ */
 const config: Config = {
-  ...defaultConfig,
-  content: [...defaultConfig.content, "./pages/**/*.{js,ts,jsx,tsx,mdx}", "*.{js,ts,jsx,tsx,mdx}"],
+  ...shadcnConfig,
+  content: [
+    ...shadcnConfig.content,
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
-    ...defaultConfig.theme,
+    ...shadcnConfig.theme,
     extend: {
-      ...defaultConfig.theme.extend,
+      ...shadcnConfig.theme.extend,
       fontFamily: {
         inter: ["var(--font-inter)"],
         gaming: ["var(--font-orbitron)"],
       },
       colors: {
-        ...defaultConfig.theme.extend.colors,
+        ...shadcnConfig.theme.extend.colors,
         "neon-cyan": "#00FFE0",
         "neon-pink": "#FF2CDF",
         "dark-blue": "#1B1F3B",
@@ -29,17 +39,14 @@ const config: Config = {
         },
         "pulse-glow": {
           "0%, 100%": { boxShadow: "0 0 20px #00FFE0" },
-          "50%": { boxShadow: "0 0 40px #00FFE0, 0 0 60px #00FFE0" },
+          "50%": {
+            boxShadow: "0 0 40px #00FFE0, 0 0 60px #00FFE0",
+          },
         },
       },
     },
   },
-  plugins: [
-    ...defaultConfig.plugins,
-    // Optional: add the official Tailwind plugins if you use them
-    // require("@tailwindcss/forms"),
-    // require("@tailwindcss/typography"),
-  ],
+  plugins: [...shadcnConfig.plugins, animatePlugin],
 }
 
 export default config
